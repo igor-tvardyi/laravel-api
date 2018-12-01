@@ -17,6 +17,8 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->softDeletes();
+
             $table->text('first_name');
             $table->text('email');
         });

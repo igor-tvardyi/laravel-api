@@ -17,6 +17,8 @@ class CreateClientContactsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->softDeletes();
+
             $table->integer('client_id')->unsigned();
             $table->text('address');
             $table->text('postcode');
