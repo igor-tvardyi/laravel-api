@@ -30,7 +30,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group([
     'prefix' => 'clients',
-//    'middleware' => 'auth:api',
+    'middleware' => 'auth:api',
 ],
 function () {
     Route::get('', 'ClientController@getClients');
