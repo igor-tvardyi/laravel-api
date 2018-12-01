@@ -25,19 +25,25 @@ Route::group(['prefix' => 'auth'], function () {
         'middleware' => 'auth:api'
     ], function () {
         Route::get('logout', 'AuthController@logout');
-//        Route::get('user', 'AuthController@user');
     });
 });
 
-//Route::middleware('auth:api')->get('/clients', 'ClientController@getClients');
-Route::get('/clients', 'ClientController@getClients');
-Route::get('/clients/{client}', 'ClientController@getClient');
-Route::post('/clients', 'ClientController@postClient');
-Route::put('/clients/{client}', 'ClientController@putClient');
-Route::delete('/clients/{client}', 'ClientController@deleteClient');
+Route::group([
+    'prefix' => 'clients',
+//    'middleware' => 'auth:api',
+],
+function () {
+    Route::get('', 'ClientController@getClients');
+    Route::get('{client}', 'ClientController@getClient');
+    Route::post('', 'ClientController@postClient');
+    Route::put('{client}', 'ClientController@putClient');
+    Route::delete('/clients/{client}', 'ClientController@deleteClient');
 
-Route::get('/clients/{client}/contacts', 'ClientContactController@getClientContacts');
-Route::get('/clients/{client}/contacts/{clientContact}', 'ClientContactController@getClientContact');
-Route::post('/clients/{client}/contacts', 'ClientContactController@postClientContact');
-Route::put('/clients/{client}/contacts/{clientContact}', 'ClientContactController@putClientContact');
-Route::delete('/clients/{client}/contacts/{clientContact}', 'ClientContactController@deleteClientContact');
+    Route::get('{client}/contacts', 'ClientContactController@getClientContacts');
+    Route::get('{client}/contacts/{clientContact}', 'ClientContactController@getClientContact');
+    Route::post('{client}/contacts', 'ClientContactController@postClientContact');
+    Route::put('{client}/contacts/{clientContact}', 'ClientContactController@putClientContact');
+    Route::delete('{client}/contacts/{clientContact}', 'ClientContactController@deleteClientContact');
+});
+
+Route::post('import/csv', 'ImportController@postCsv');
