@@ -39,11 +39,11 @@ function () {
     Route::put('{client}', 'ClientController@putClient');
     Route::delete('{client}', 'ClientController@deleteClient');
 
-    Route::get('{client}/contacts', 'ClientContactController@getClientContacts');
-    Route::get('{client}/contacts/{clientContact}', 'ClientContactController@getClientContact');
-    Route::post('{client}/contacts', 'ClientContactController@postClientContact');
-    Route::put('{client}/contacts/{clientContact}', 'ClientContactController@putClientContact');
-    Route::delete('{client}/contacts/{clientContact}', 'ClientContactController@deleteClientContact');
+    Route::get('{client}/contacts', 'ClientController@getClientContacts');
+    Route::get('{client}/contacts/{clientContact}', 'ClientController@getClientContact');
+    Route::post('{client}/contacts', 'ClientController@postClientContact');
+    Route::put('{client}/contacts/{clientContact}', 'ClientController@putClientContact');
+    Route::delete('{client}/contacts/{clientContact}', 'ClientController@deleteClientContact');
 });
 
 Route::post('import/csv', 'ImportController@postCsv');
