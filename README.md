@@ -1,6 +1,6 @@
-##Simple Laravel API example
+# Simple Laravel API example
 
-**Setup instruction:**
+**Setup instructions:**
 
 1) Create an `.env` file in the project root based on `.env.example`
 2) Set database parameters in `.env` file and create database
