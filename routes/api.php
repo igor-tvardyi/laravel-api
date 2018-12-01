@@ -37,7 +37,7 @@ function () {
     Route::get('{client}', 'ClientController@getClient');
     Route::post('', 'ClientController@postClient');
     Route::put('{client}', 'ClientController@putClient');
-    Route::delete('/clients/{client}', 'ClientController@deleteClient');
+    Route::delete('{client}', 'ClientController@deleteClient');
 
     Route::get('{client}/contacts', 'ClientContactController@getClientContacts');
     Route::get('{client}/contacts/{clientContact}', 'ClientContactController@getClientContact');
