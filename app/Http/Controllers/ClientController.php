@@ -31,6 +31,10 @@ class ClientController extends Controller
 
     public function putClient(Request $request, Client $client)
     {
+        $request->validate([
+            'first_name' => 'required|string',
+            'email' => 'required|string|email'
+        ]);
         $client->update($request->all());
 
         return response()->json($client, 200);
@@ -55,6 +59,10 @@ class ClientController extends Controller
 
     public function postClientContact(Request $request, Client $client)
     {
+        $request->validate([
+            'address' => 'required|string',
+            'postcode' => 'required|string'
+        ]);
         $clientContact = $client->contacts()->create($request->all());
 
         return response()->json($clientContact, 201);
@@ -62,6 +70,10 @@ class ClientController extends Controller
 
     public function putClientContact(Request $request, Client $client, ClientContact $clientContact)
     {
+        $request->validate([
+            'address' => 'required|string',
+            'postcode' => 'required|string'
+        ]);
         $clientContact = $clientContact->update($request->all());
 
         return response()->json($clientContact, 200);

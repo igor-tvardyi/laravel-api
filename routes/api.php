@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
@@ -46,4 +42,4 @@ function () {
     Route::delete('{client}/contacts/{clientContact}', 'ClientController@deleteClientContact');
 });
 
-Route::post('import/csv', 'ImportController@postCsv');
+Route::middleware('auth:api')->post('import/csv', 'ImportController@postCsv');

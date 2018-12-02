@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +24,9 @@ class ImportController extends Controller
             return response()->json([], 400);
         }
 
-        $count = 0;
+        $limitCount = 0;
+        $imported = 0;
+        $skipped = 0;
         $dbData = [];
 
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
@@ -32,14 +35,23 @@ class ImportController extends Controller
                 'email' => $data[1] ?? '',
             ];
 
-            // todo add validation
+            $validator = Validator::make($row, [
+                'first_name' => 'required|string',
+                'email' => 'required|email',
+            ]);
+
+            if ($validator->fails()) {
+                $skipped++;
+                continue;
+            }
 
             $dbData[] = $row;
-            $count++;
+            $imported++;
+            $limitCount++;
 
-            if ($count > self::LIMIT) {
+            if ($limitCount > self::LIMIT) {
                 DB::table('clients')->insert($dbData);
-                $count = 0;
+                $limitCount = 0;
                 $dbData = [];
             }
         }
@@ -49,6 +61,6 @@ class ImportController extends Controller
             DB::table('clients')->insert($dbData);
         }
 
-        return response()->json();
+        return response()->json(['imported' => $imported, 'skipped' => $skipped]);
     }
 }
