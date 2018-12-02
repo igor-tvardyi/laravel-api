@@ -74,7 +74,7 @@ class ClientController extends Controller
             'address' => 'required|string',
             'postcode' => 'required|string'
         ]);
-        $clientContact = $clientContact->update($request->all());
+        $clientContact->update($request->all());
 
         return response()->json($clientContact, 200);
     }
